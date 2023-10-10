@@ -71,6 +71,9 @@ function getDev(team) {
 getDev(team);
 console.log(JSON.stringify(team.filter(member => member.match(/Dav/))));
 
+//::: filter 는 배열의 각 항목을 순회할 때 조건이 참값을 반환하면 배열의 값을 결과 배열에 추가하고 거짓이면 결과 배열에 담지 않음
+//::: 참값에 해당하는 값만 새로운 배열에 담음 : [82, 72]
+//::: 참값이 하나도 없으면 빈 배열을 반환 : []
 const scores = [30, 82, 70, 45];
 function getNumberOfPassingScores(scores) {
     const passing = scores.filter(score => score > 59);
@@ -78,3 +81,46 @@ function getNumberOfPassingScores(scores) {
     return passing.length;
 }
 getNumberOfPassingScores(scores);
+
+function getPerfectScores(scores) {
+    const perfect = scores.filter(score => score === 100);
+    console.log(JSON.stringify(perfect));
+}
+getPerfectScores(scores);
+
+//::: find : 참값을 반환하는 첫번째 값을 반환
+//::: 참값이 하나도 없으면 undefined 반환 : OR 연산자로 보완
+//:::  ㄴ undefined || '[기본값]' 방식으로 사용 가능
+const instructors = [
+    {
+        name: '짐',
+        libraries: ['미디어교육정보 도서관']
+    },
+    {
+        name: '새라',
+        libraries: ['기념 도서관', '문헌정보 도서관']
+    },
+    {
+        name: '엘리엇',
+        libraries: ['중앙 도서관']
+    }
+];
+function getMemoriealInstructor(instructors) {
+    for(let i = 0; i<instructors.length; i++) {
+        if (instructors[i].libraries.includes('기념 도서관')) {
+            console.log(JSON.stringify(instructors[i]));
+            break;
+        }
+    }
+}
+getMemoriealInstructor(instructors);
+
+const librarian = instructors.find(instructor => {
+    return instructor.libraries.includes('기념 도서관');
+});
+console.log(JSON.stringify(librarian));
+
+const defaultLibrarian = instructors.find(instructor => {
+    return instructor.libraries.includes('존재하지 않는 도서관');
+});
+console.log(JSON.stringify(defaultLibrarian || '기본 도서관'));
