@@ -52,10 +52,32 @@ function mergeProgramInformationParitial(building, manager) {
     };
 }
 
+//::: 매개변수 반복 해결 못함
 const programInfoParitial = mergeProgramInformationParitial(building, manager) (program);
 const exhibitInfoParitial = mergeProgramInformationParitial(building, manager) (exhibit);
 console.log(programInfoParitial);
 console.log(exhibitInfoParitial);
+
+console.log('=================== 매개변수 반복 해결 I ==================');
+//::: 매개변수 반복 해결 : 고차함수로 한번 저장후 나중에 사용할 수 있는 새로운 함수 생성하여 재사용하여 매개변수 반복 해결
+const setStrongHallProgram = mergeProgramInformationParitial(building, manager);
+console.log(setStrongHallProgram(program));
+console.log(setStrongHallProgram(exhibit));
+
+console.log('=================== 매개변수 반복 해결 II ==================');
+//::: 매개변수 반복 해결 : 고차함수 정보 하드코딩
+const SetStrongHollProgramArrow = program => {
+    const defaults = {
+        hours: '8 a.m. - 8 p.m.',
+        address: 'Jayhawk Blvd',
+        contact: 'Augusto',
+        phone: '555-555-5555',
+    };
+
+    return {...defaults, ...program};
+};
+console.log(SetStrongHollProgramArrow(program));
+console.log(SetStrongHollProgramArrow(exhibit));
 
 
 //::: 지역 대표 새 반환
