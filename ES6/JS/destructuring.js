@@ -52,4 +52,60 @@ function displayPhoto(photo) {
     `);
 }
 
-document.write(displayPhoto(landscape));
+//document.write(displayPhoto(landscape));
+
+//::: 배열값 해체
+//const { location : loc } = landscape;
+//const [ latitude, longitude ] = loc;
+//const { location: [latitude, longitude] } = landscape;
+//console.log(latitude, longitude);
+
+function displayPhotoDestructuring(photo) {
+    const {
+        title,
+        photographer = 'Anonymous',
+        location: [latitude, longitude],
+        src: url,
+        width: width,
+        height: height,
+        ...other
+    } = photo; //객체 photo 를 해체하여 각 변수이 설정
+
+    width = '150';
+    const additional = Object.keys(other).map(key => `${key}:${other[key]}`);
+
+    return (`
+        <img alt="${title} 사진 ${photographer} 촬영" src="${url}" width="${width}" height="${height}" />
+        <div>${title}</div>
+        <div>${photographer}</div>
+        <div>위도: ${location[0]}</div>
+        <div>경도: ${location[1]}</div>
+        <div>${additional.join('<br />')}</div>
+    `);
+}
+
+//::: 함수의 매개변수 해체할당 : 기본 let 으로 변수 설정
+function displayPhotoDestructuringParam({
+        title,
+        photographer = 'Anonymous',
+        location: [latitude, longitude],
+        src: url,
+        width: width,
+        height: height,
+        ...other
+    }) { 
+
+    width = '250';
+    const additional = Object.keys(other).map(key => `${key}:${other[key]}`);
+
+    return (`
+        <img alt="${title} 사진 ${photographer} 촬영" src="${url}" width="${width}" height="${height}" />
+        <div>${title}</div>
+        <div>${photographer}</div>
+        <div>위도: ${location[0]}</div>
+        <div>경도: ${location[1]}</div>
+        <div>${additional.join('<br />')}</div>
+    `);
+}
+
+document.write(displayPhotoDestructuringParam(landscape));
